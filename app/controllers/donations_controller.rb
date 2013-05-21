@@ -1,11 +1,9 @@
 class DonationsController < ApplicationController
-  def index
-    @donations = Donation.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @donations }
-    end
+
+
+  def index
+    redirect_to root_url, notice: "Nice try"
   end
 
 
@@ -13,7 +11,6 @@ class DonationsController < ApplicationController
   # GET /donations/1.json
   def show
     require'date'
-
     @donation = Donation.find(params[:id])
     @university = Donation.find_by_id(params[:id]).university_id
     @school = Donation.find_by_id(params[:id]).school_id
