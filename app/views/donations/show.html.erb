@@ -1,0 +1,57 @@
+<!-- <p id="notice"><%= notice %></p> -->
+
+<p>
+  <h3>Thank you for your pledge <%= User.find_by_id(@donation.user_id).name.split.first %>!</h3>
+</p>
+<h4>Pledge summary </h4>
+
+<h5>University:  <%= link_to @donation.uniname, university_path(@university)  %></h5>
+<% if @donation.school_id.present? %>
+  <h5>School:  <%= link_to @donation.schoolname, school_path(@school)  %></h5>
+<% end %>
+<% if @donation.campaign_id.present? %>
+  <h5>Campaign:  <%= link_to Campaign.find_by_id(@campaign).campaign_name, campaign_path(@campaign)%></h5>
+<% end %>
+<% if @donation.section_id.present? %>
+  <h5>Section:  <%= link_to Section.find_by_id(@section).name, campaign_path(@campaign) %></h5>
+<% end %>
+<p>
+  <b>Amount:</b>
+  <b2> $ <%= @donation.value%></b2>
+</p>
+
+<p>
+  <b>Pledge made on:</b>
+  <b2><%= @donation.updated_at.strftime("%B #{@donation.updated_at.day.ordinalize}, %Y") %></b2>
+
+
+</p>
+
+<!-- <p>
+  <b>University:</b>
+  <%= @donation.university_id %>
+</p> -->
+
+<!-- <p>
+  <b>School:</b>
+  <%= @donation.school_id %>
+</p> -->
+
+<p>
+  <b>Grad year:</b>
+  <%= @donation.grad_year %>
+</p>
+
+<!--<p>
+  <b>Tier:</b>
+  <%= @donation.tier %>
+</p> -->
+
+<!-- <p>
+  <b>Designation:</b>
+  <%= @donation.designation %>
+</p> -->
+
+
+<%= link_to 'Edit', edit_donation_path(@donation) %> |
+<%= link_to 'Back', university_path(@university) %>

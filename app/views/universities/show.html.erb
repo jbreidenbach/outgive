@@ -1,0 +1,105 @@
+
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <h1 class><%= @university.uniname %></h1>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%= link_to @university.uniwebsite, @university.uniwebsite, :target => "_blank"%>
+</p>
+  <% if current_user %>
+    <%= link_to(("Pledge to " + @university.uniname()).html_safe, new_donation_url(university_id: @university.id), class: 'btn btn-large btn-primary') %></td>
+  <% else %>
+    <%= link_to"Sign in with Facebook", "/auth/facebook", class: 'btn btn-primary' %></td>
+
+  <% end %>
+<br></br>
+
+
+  <% if School.find_by_university_id(@university).nil?%>
+  <% else %>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th align="justify">Want to designate a graduate school?</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <ul>
+      <% @university.schools.each do |school| %>
+          <tr>
+            <td><%= link_to school.schoolname, school %></td>
+            <td>Current total:  $<%= Donation.where(:school_id => school).sum('value') %></td>
+            <td>
+            <% if current_user %>
+              <%= link_to(("Pledge to " + school.schoolname()).html_safe, school, class: 'btn', style: "float: right;") %>
+            <% else %>
+              <%= link_to "Sign in with Facebook", "/auth/facebook", class: 'btn btn-primary' %>
+            <% end %>
+            </td>
+          </tr>
+      <% end %>
+      </ul>
+      </tbody>
+    </table>
+  <% end %>
+
+
+<% if Campaign.find_by_university_id(@university).nil?%>
+  <% else %>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Want to designate a campaign?</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <ul>
+      <% @university.campaigns.each do |campaign| %>
+      <% if(campaign.schoolcode.nil?) %>
+          <tr>
+            <td><%= campaign.campaign_name %></td>
+            <td>Current total:  $<%= Donation.where(:campaign_id => campaign).sum('value') %></td>
+            <td>
+            <% if current_user %>
+              <%= link_to(("Pledge to " + campaign.campaign_name()).html_safe, new_donation_url(university_id: @university.id, campaign_id: campaign.id), class: 'btn ', style: "float: right;") %>
+            <% else %>
+              <%= link_to "Sign in with Facebook", "/auth/facebook", class: 'btn btn-primary' %>
+            <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+      </ul>
+      </tbody>
+    </table>
+  <% end %>
+
+  <h3>Last 10 Pledges</h3>
+    <ul>
+      <% @university.donations.where(:private => 0).reverse.last(10).each do |donation| %>
+        <p><%= "$#{donation.value}:  #{donation.user.name}:" %></p>
+      <% end %>
+      <% total = 0 %>
+      <% @university.donations.each do |donation| %>
+        <% total = donation.value + total %>
+      <% end %>
+
+      <p>
+      <b>TOTAL PLEDGED</b>
+      </p>
+      <b>$ <%= number_with_precision(total, :precision => 2, :delimiter => ',') %></b>
+    </ul>
+<br></br>
+
+
+
+<%= link_to 'Back', universities_path %>
+

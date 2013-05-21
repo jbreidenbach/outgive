@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  campaign_name: MyString
+  campaigncode: 1
+  university_id: 1
+  schoool_id: 1
+  unicode: 1
+  uniname: MyString
+  schoolcode: 1
+  schoolname: MyString
+
+two:
+  campaign_name: MyString
+  campaigncode: 1
+  university_id: 1
+  schoool_id: 1
+  unicode: 1
+  uniname: MyString
+  schoolcode: 1
+  schoolname: MyString

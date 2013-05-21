@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  uniname: MyString
+  uniwebsite: MyString
+  unicode: 1
+
+two:
+  uniname: MyString
+  uniwebsite: MyString
+  unicode: 1

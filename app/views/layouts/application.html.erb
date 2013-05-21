@@ -1,0 +1,147 @@
+
+
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Le styles -->
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 60px;
+      }
+
+      /* Custom container */
+      .container {
+        margin: 0 auto;
+        max-width: 1000px;
+      }
+      .container > hr {
+        margin: 60px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 80px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 100px;
+        line-height: 1;
+      }
+      .jumbotron .lead {
+        font-size: 24px;
+        line-height: 1.25;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+
+
+      /* Customize the navbar links to be fill the entire space of the .navbar */
+
+    </style>
+<html lang= "en">
+<head>
+  <title>Outgive.me</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <style type="text/css">
+    body { padding-top: 60px; padding-bottom: 40px; }
+  </style>
+
+  <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+  <style type="text/css">
+    .table thead th { font-size: 20px; background: #f9f9f9; color: grey; text-align: center; height: 30px; padding: 12px; vertical-align: middle}
+    .table td { text-align: center; }
+  </style>
+
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <!-- Le fav and touch icons -->
+  <link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/images/favicon.ico">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/images/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/images/apple-touch-icon-114x114.png">
+
+</head>
+
+<!-- Responsiveness -->
+<meta name="viewport" content="width=device-width, initial-scale=.0">
+
+
+<body>
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand span2" href="/"><%= "#{current_user.name.split.first}'s" if current_user.present? %> Outgive.me</a>
+        <div class="nav-collapse">
+          <form class="navbar-search pull-left" action="/universities">
+            <input type="text" class="search-query span3" placeholder="Search by University" name="keyword">
+            <button type="submit" class="btn-mini btn-primary">Search</button>
+          </form>
+          <ul class="nav pull-right">
+            <li><a href="/info">How it works</a></li>
+            <li><a href="/universities">Pledge</a></li>
+            <!-- <li><a href="/ranking">All Pledges</a></li> -->
+
+
+              <% if current_user %>
+                <li><%= link_to "My Profile", user_url(current_user.id) %></li>
+                <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
+              <% else %>
+                <li><a href="/auth/facebook">Sign in with Facebook</a></li>
+              <% end %>
+
+
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <!-- <p><%= notice %></p> -->
+
+    <%= yield %>
+
+
+    <hr>
+
+    <footer>
+      <p>  Have a comment or suggestion?  <a href= "mailto:outgive@gmail.com?subject= Comment/Suggestion">Email Us</a></p>
+      <!-- <p>&copy;2013 Outgive.me</p> -->
+      <p>2013 Outgive.me</p>
+    </footer>
+  </div> <!-- /container -->
+
+</body>
+</html>
+

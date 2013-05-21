@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  schoolname: MyString
+  schoolwebsite: MyString
+  schoolcode: 1
+  university_id: 1
+  uniname: MyString
+  unicode: 1
+
+two:
+  schoolname: MyString
+  schoolwebsite: MyString
+  schoolcode: 1
+  university_id: 1
+  uniname: MyString
+  unicode: 1

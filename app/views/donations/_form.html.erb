@@ -1,0 +1,72 @@
+<%= form_for(@donation) do |f| %>
+  <% if @donation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@donation.errors.count, "error") %> prohibited this donation from being saved:</h2>
+
+      <ul>
+      <% @donation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+<% if(params.has_key?(:university_id) && params.has_key?(:section_id)) %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :university_id %>
+  <%= f.hidden_field :unicode, :value => @donation.university.unicode%>
+  <%= f.hidden_field :uniname, :value => @donation.university.uniname%>
+  <%= f.hidden_field :campaign_id, :value => @donation.section.campaign_id%>
+  <%= f.hidden_field :school_id, :value => @donation.section.school_id%>
+  <%= f.hidden_field :schoolcode, :value => @donation.section.schoolcode%>
+  <%= f.hidden_field :schoolname, :value => @donation.section.schoolname%>
+  <%= f.hidden_field :section_id, :value => @donation.section_id%>
+<% elsif(params.has_key?(:university_id) && params.has_key?(:campaign_id)) %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :university_id %>
+  <%= f.hidden_field :unicode, :value => @donation.university.unicode%>
+  <%= f.hidden_field :uniname, :value => @donation.university.uniname%>
+  <%= f.hidden_field :campaign_id, :value => @donation.campaign_id%>
+  <%= f.hidden_field :school_id, :value => @donation.campaign.school_id%>
+  <%= f.hidden_field :schoolcode, :value => @donation.campaign.schoolcode%>
+  <%= f.hidden_field :schoolname, :value => @donation.campaign.schoolname%>
+<% elsif(params.has_key?(:university_id) && params.has_key?(:school_id)) %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :university_id %>
+  <%= f.hidden_field :unicode, :value => @donation.university.unicode%>
+  <%= f.hidden_field :uniname, :value => @donation.university.uniname%>
+  <%= f.hidden_field :school_id, :value => @donation.school_id%>
+  <%= f.hidden_field :schoolcode, :value => @donation.school.schoolcode%>
+  <%= f.hidden_field :schoolname, :value => @donation.school.schoolname%>
+<% else %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <%= f.hidden_field :university_id %>
+  <%= f.hidden_field :unicode, :value => @donation.university.unicode%>
+  <%= f.hidden_field :uniname, :value => @donation.university.uniname%>
+<% end %>
+
+<!--   <div class="field">
+    <%= f.label :school_id %><br />
+    <%= f.number_field :school_id %>
+  </div> -->
+<br></br>
+  <div class="field">
+    <%= f.label :how_much_would_you_like_to_donate? %>
+    $<%= f.number_field :value, :value => number_to_currency(f.object.value) %><br />
+  </div>
+<br></br>
+  <div class="field">
+    <%= f.label :grad_year_if_alumni %>
+    <%= f.text_field :grad_year %><br />
+  </div>
+<br></br>
+  <div class="field">
+    <%= f.label :keep_your_pledge_private? %>
+    <%= f.check_box :private %><br />
+  </div>
+<br></br>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

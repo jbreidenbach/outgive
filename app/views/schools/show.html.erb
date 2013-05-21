@@ -1,0 +1,77 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <h2><%= @school.schoolname %></h2>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%= link_to @school.schoolwebsite, @school.schoolwebsite, :target => "_blank"%>
+</p>
+  <% if current_user %>
+  <%= link_to(("Pledge to " + @school.schoolname()).html_safe, new_donation_url(university_id: @school.university_id, school_id: @school.schoolcode), class: 'btn btn-large btn-primary') %></td>
+
+  <% else %>
+    <%= link_to "Sign in with Facebook", "/auth/facebook", class: 'btn btn-primary' %></td>
+
+  <% end %>
+<br></br>
+
+
+<% if Campaign.find_by_school_id(@school).nil?%>
+  <% else %>
+      <table class="table table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Want to designate a campaign?</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <ul>
+      <% @school.campaigns.each do |campaign| %>
+          <tr>
+            <td><%= link_to campaign.campaign_name, campaign %></td>
+            <td>Current total:  $<%= Donation.where(:campaign_id => campaign).sum('value') %></td>
+            <td>
+          <% if Section.find_by_campaign_id(campaign.id).nil?%>
+            <% if current_user %>
+            <%= link_to(("Pledge to " + campaign.campaign_name()).html_safe, new_donation_url(university_id: @school.university_id, campaign_id: campaign.id), class: 'btn', style: "float: right;") %>
+            <% else %>
+              <%= link_to "Sign in with Facebook", "/auth/facebook", class: 'btn btn-primary' %>
+            <% end %>
+          <% else %>
+            <% if current_user %>
+            <%= link_to(("Pledge to " + campaign.campaign_name()).html_safe, campaign, class: 'btn', style: "float: right;") %>
+            <% else %>
+              <%= link_to "Sign in with Facebook", "/auth/facebook", class: 'btn btn-primary' %>
+            <% end %>
+          <% end %>
+            </td>
+          </tr>
+      <% end %>
+      </ul>
+      </tbody>
+    </table>
+  <% end %>
+
+  <h3>Last 10 Pledges</h3>
+    <ul>
+      <% @school.donations.where(:private => 0).last(10).each do |donation| %>
+        <p><%= "$#{donation.value}:  #{donation.user.name}" %></p>
+      <% end %>
+      <% total = 0 %>
+      <% @school.donations.each do |donation| %>
+        <% total = donation.value + total %>
+      <% end %>
+
+      <p>
+      <b>TOTAL PLEDGED</b>
+      </p>
+      <b>$ <%= number_with_precision(total, :precision => 2, :delimiter => ',') %></b>
+    </ul>
+<br></br>
+
+
+<%= link_to 'Back', university_path(@school.university_id) %>

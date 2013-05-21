@@ -1,0 +1,42 @@
+
+<!--  -->
+<div class="row">
+
+    <h1 class="page-header">What School Do You Support?</h1>
+    <form class="navbar-search pull-left" action="/universities">
+      <input type="text" class="search-query span3" placeholder="Search by University" name="keyword">
+      <button type="submit" class="btn-mini btn-primary">Search</button>
+    </form>
+<br></br>
+
+    <%= will_paginate @universities %>
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+
+          <th>Universities</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+       <% @universities.each do |university| %>
+        <tr>
+          <td><%= link_to university.uniname, university %></td>
+          <td>Current total:  $<%= Donation.where(:university_id => university).sum('value') %></td>
+          <td>
+            <% if current_user %>
+              <%= link_to(("Pledge to " + university.uniname()).html_safe, university, class: 'btn ', style: "float: right;") %></td>
+            <% else %>
+              <%= link_to "Sign in with Facebook to Pledge", "/auth/facebook", class: 'btn btn-primary' %></td>
+
+            <% end %>
+
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+</div>
+

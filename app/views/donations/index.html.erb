@@ -1,0 +1,41 @@
+<h1>Listing donations</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>University</th>
+    <th>School</th>
+    <!-- <th>Credit card</th> -->
+    <!-- <th>Expiration date</th> -->
+    <!-- <th>Security code</th> -->
+    <th>Grad year</th>
+    <th>Tier</th>
+    <th>Designation</th>
+
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @donations.each do |donation| %>
+  <tr>
+    <td><%= donation.user.name %></td>
+    <td><%= link_to donation.uniname, donation.university %></td>
+    <td><%= donation.school_id %></td>
+    <td><%= donation.grad_year %></td>
+<!--     <td><%= donation.credit_card %></td>
+    <td><%= donation.expiration_date %></td>
+    <td><%= donation.security_code %></td> -->
+    <td><%= donation.tier %></td>
+    <td><%= donation.designation %></td>
+
+    <td><%= link_to 'Show', donation %></td>
+    <td><%= link_to 'Edit', edit_donation_path(donation) %></td>
+    <td><%= link_to 'Destroy', donation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Donation', new_donation_path %>
