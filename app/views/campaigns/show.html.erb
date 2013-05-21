@@ -29,14 +29,7 @@
       <% @section.each do |section| %>
           <tr>
             <td class="text-left"><%= section.name %></td>
-            <td>Current total:  $<%= Donation.where(:section_id => section).sum('value') %></td>
-            <td>
-            <% if current_user %>
-              <%= link_to(("Pledge for " + section.name()).html_safe, new_donation_url(university_id: @university.id, section_id: section.id), class: 'btn ', style: "float: right;") %>
-            <% else %>
-              <%= link_to "Sign in with Facebook", "/auth/facebook", class: 'btn btn-primary' %>
-            <% end %>
-            </td>
+
           </tr>
       <% end %>
       </ul>
