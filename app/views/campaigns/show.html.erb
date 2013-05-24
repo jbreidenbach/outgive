@@ -32,7 +32,7 @@
             <td>Current total:  $<%= Donation.where(:section_id => section).sum('value') %></td>
             <td>
             <% if current_user %>
-              <%= link_to(("Pledge for " + section.name()).html_safe, new_donation_url(university_id: section.university_id, section_id: section), class: 'btn ', style: "float: right;") %>
+              <%= link_to(("Pledge for " + section.name()).html_safe, new_donation_path(university_id: section.university_id, section_id: section), id: "new_link", class: 'btn ', style: "float: right;") %>
             <% else %>
               <%= link_to "Sign in with Facebook", "/auth/facebook", class: 'btn btn-primary' %>
             <% end %>

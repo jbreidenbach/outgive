@@ -35,6 +35,7 @@ class DonationsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @donation }
+      format.js
     end
   end
 
@@ -52,9 +53,11 @@ class DonationsController < ApplicationController
       if @donation.save
         format.html { redirect_to @donation, notice: 'Donation was successfully created.' }
         format.json { render json: @donation, status: :created, location: @donation }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @donation.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -82,8 +85,9 @@ class DonationsController < ApplicationController
     @donation.destroy
 
     respond_to do |format|
-      format.html { redirect_to donations_url }
+      format.html { redirect_to user_url(current_user.id) }
       format.json { head :no_content }
+      format.js
     end
   end
 end

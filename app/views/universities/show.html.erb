@@ -85,7 +85,7 @@
   <h3>Last 10 Pledges</h3>
     <ul>
       <% @university.donations.where(:private => 0).reverse.last(10).each do |donation| %>
-        <p><%= "$#{donation.value}:  #{donation.user.name}:" %></p>
+        <p><%= "$#{donation.value}:  #{donation.user.name}" %></p>
       <% end %>
       <% total = 0 %>
       <% @university.donations.each do |donation| %>

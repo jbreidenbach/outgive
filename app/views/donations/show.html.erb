@@ -34,6 +34,7 @@
 </p>
 
 
-
+<%= link_to 'My Donations', user_url(current_user.id) %>
 <%= link_to 'Edit', edit_donation_path(@donation) %> |
-<%= link_to 'Back', university_path(@university) %>
+<%= link_to 'Back to University', university_path(@university) %>
+
